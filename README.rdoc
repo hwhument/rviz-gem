@@ -1,5 +1,4 @@
-Rviz: An Other Ruby Interface for Graphviz
-==============================================
+= Rviz: An Other Ruby Interface for Graphviz
 
 Provide a simple OOP interface and designed easy to extend.
 
