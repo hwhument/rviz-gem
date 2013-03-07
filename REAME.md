@@ -20,6 +20,17 @@ Provide a simple OOP interface and designed easy to extend.
     g.output('some.dot') # generate a dot file
     g.output # send output to STDOUT
 
+An easy way to create `record` and `Mrecord` type of nodes:
+
+    g.add_record('Record A')
+    g.node('Record A').add_row('A Row 1', true) # add an anchor
+    g.node('Record A').add_row('A Row 2', true) # add an anchor
+    g.node('Record A').add_row('A Row 3', true) # add an anchor
+
+    g.add_record('Record B')
+    g.node('Record B').add_row('B Row 1', true) # add an anchor
+    g.add_edge('Record A', 'A Row 2', 'Record B', 'B Row 1', {label: 'link A:2 to B:1'})
+
 You can extend `Rviz` very easy:
 
     # in file red_note.rb
