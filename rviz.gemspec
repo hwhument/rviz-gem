@@ -8,9 +8,9 @@ Gem::Specification.new 'rviz', Rviz::VERSION do |s|
   s.email             = "huangw@pe-po.com"
   s.homepage          = "https://github.com/huangw/rviz-gem"
   s.files             = `git ls-files`.split("\n") - %w[.gitignore]
-  s.test_files        = s.files.select { |p| p =~ /^test\/.+/ }
+  s.test_files        = Dir.glob("{spec,test}/**/*.rb")
   s.rdoc_options      = %w[--line-numbers --inline-source --title Rviz --main README.rdoc --encoding=UTF-8]
 
-  # s.add_dependency ''
+  s.add_development_dependency 'rspec', '~> 2.5'
 end
 
