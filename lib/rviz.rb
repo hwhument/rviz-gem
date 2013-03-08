@@ -29,3 +29,4 @@ end
 require "rviz/edge.rb"
 require "rviz/graph.rb"
 require "rviz/node.rb"
+require "rviz/record.rb"
