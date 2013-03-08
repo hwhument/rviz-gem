@@ -4,10 +4,10 @@ module Rviz
     def attrs_to_s
       attr_strs = Array.new
 
-      @attrs.each do |k,v| 
-        v = v.to_s
-        v = "\"#{v}\"" if v.match(/\W/)
-        attr_strs << sprintf('%s=%s', k.to_s, v)
+      @attrs.each do |k,v|
+        k = self.quote(k)
+        v = self.quote(v)
+        attr_strs << sprintf('%s=%s', k, v)
       end
       attr_strs.join(", ")
     end
@@ -17,10 +17,10 @@ module Rviz
     end
 
     def quote str
-      if str =~ /^\w+$/
-        str
+      if str.match(/\W/)
+        %Q{"#{str.to_s}"}
       else
-        %Q|"#{str}"|
+        str.to_s
       end
     end
   end
@@ -29,3 +29,4 @@ end
 require "rviz/edge.rb"
 require "rviz/graph.rb"
 require "rviz/node.rb"
+require "rviz/record.rb"

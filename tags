@@ -7,7 +7,7 @@
 Edge	lib/rviz/edge.rb	/^  class Edge$/;"	c	class:Rviz
 Graph	lib/rviz/graph.rb	/^  class Graph$/;"	c	class:Rviz
 Helper	lib/rviz.rb	/^  module Helper$/;"	m	class:Rviz
-Mrecord	lib/rviz/record.rb	/^  class Mrecord < Record $/;"	c	class:Rviz
+Mrecord	lib/rviz/record.rb	/^  class Mrecord < Record$/;"	c	class:Rviz
 Node	lib/rviz/node.rb	/^  class Node$/;"	c	class:Rviz
 Record	lib/rviz/record.rb	/^  class Record < Node$/;"	c	class:Rviz
 Rviz	lib/rviz.rb	/^module Rviz$/;"	m
@@ -17,8 +17,17 @@ Rviz	lib/rviz/node.rb	/^module Rviz$/;"	m
 Rviz	lib/rviz/record.rb	/^module Rviz$/;"	m
 Rviz	lib/rviz/version.rb	/^module Rviz$/;"	m
 SubGraph	lib/rviz/graph.rb	/^  class SubGraph$/;"	c	class:Rviz
-add_row	lib/rviz/record.rb	/^    def add_row$/;"	f	class:Rviz.Record
+add_row	lib/rviz/record.rb	/^    def add_row row_name, create_anchor = false, port_pos = 'n'$/;"	f	class:Rviz.Record
 attrs_to_s	lib/rviz.rb	/^    def attrs_to_s$/;"	f	class:Rviz.Helper
+get_anchor_id	lib/rviz/record.rb	/^    def get_anchor_id row_name$/;"	f	class:Rviz.Record
 initialize	lib/rviz/edge.rb	/^    def initialize from_node, from_anchor, to_node, to_anchor = nil, attributes = {}$/;"	f	class:Rviz.Edge
+initialize	lib/rviz/node.rb	/^    def initialize name, shape = "box", attrs = {}$/;"	f	class:Rviz.Node
+initialize	lib/rviz/record.rb	/^    def initialize name, attrs = {}$/;"	f	class:Rviz.Mrecord
+initialize	lib/rviz/record.rb	/^    def initialize name, attrs = {}$/;"	f	class:Rviz.Record
+label_with_rows	lib/rviz/record.rb	/^    def label_with_rows$/;"	f	class:Rviz.Record
+node_anchor	lib/rviz/edge.rb	/^    def node_anchor node, anchor$/;"	f	class:Rviz.Edge
+quote	lib/rviz.rb	/^    def quote str$/;"	f	class:Rviz.Helper
+set	lib/rviz.rb	/^    def set key, value$/;"	f	class:Rviz.Helper
 to_s	lib/rviz/edge.rb	/^    def to_s$/;"	f	class:Rviz.Edge
+to_s	lib/rviz/node.rb	/^    def to_s$/;"	f	class:Rviz.Node
 to_s	lib/rviz/record.rb	/^    def to_s$/;"	f	class:Rviz.Record
