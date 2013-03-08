@@ -15,6 +15,14 @@ module Rviz
     def set key, value
       @attrs[key] = value
     end
+
+    def quote str
+      if str =~ /^\w+$/
+        str
+      else
+        %Q|"#{str}"|
+      end
+    end
   end
 end
 
