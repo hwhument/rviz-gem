@@ -1,9 +1,10 @@
 module Rviz
   class Graph
-    attr_accessor :subgraphs, :nodes, :edges
+    attr_accessor :title, :subgraphs, :nodes, :edges
     
-    def initialize attrs = {}
+    def initialize title = '', attrs = {}
       @attrs = attrs
+      @title = title
       @nodes = Hash.new
       @edges = Array.new
       @links = Array.new
@@ -80,6 +81,12 @@ module Rviz
 
       fh.puts self.graph_start
       fh.puts self.graph_attr
+
+      if self.title.size > 0
+        fh.puts %Q{  labelloc = "t";}
+        fh.puts %Q{  label= "#{self.title}";}
+      end
+
       fh.puts self.node_attr
       fh.puts self.edge_attr
       
