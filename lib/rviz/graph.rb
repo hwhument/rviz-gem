@@ -48,6 +48,20 @@ module Rviz
       self
     end
 
+    def add_subgraph
+      # TODO
+    end
+
+    def add_record name, attr = {}
+      @nodes[name] = Record.new(name, attr)
+      self
+    end
+
+    def add_mrecord name, attr = {}
+      @nodes[name] = Mrecord.new(name, attr)
+      self
+    end
+
     # create edge between two nodes
     def link from_name, from_anchor, to_name, to_anchor = "", attrs = {}
       @links << [from_name, from_anchor, to_name, to_anchor, attrs]
@@ -88,7 +102,7 @@ module Rviz
     end
   end
 
-  class SubGraph
+  class SubGraph < Graph
     attr_accessor :name
     def graph_start; "  subgraph #{self.name} {" end
     def graph_end; "  }" end
