@@ -30,25 +30,33 @@ module Rviz
       '  edge [fontname="Arial Unicode MS", fontsize=7];'
     end
 
+    # return a specific node from the node list
+    def node name
+      @nodes[name]
+    end
+
     # add a node or create a node with name, shae and attributes
     def add name, shape='box', attrs = {}
       if name.is_a?(Node)
-        name = name.name
         node = name
+        name = name.name
       else
         node = Node.new(name, shape, attrs)
       end
       
       @nodes[name] = node
+      self
     end
 
     # create edge between two nodes
-    def link from_name, from_anchor, to_name, to_anchor, attrs = {}
+    def link from_name, from_anchor, to_name, to_anchor = "", attrs = {}
       @links << [from_name, from_anchor, to_name, to_anchor, attrs]
+      self
     end
 
     def add_edge from_name, from_anchor, to_name, to_anchor, attrs = {}
       @edges << Edge.new(from_name, from_anchor, to_name, to_anchor, attrs)
+      self
     end
 
     ## output dot language source to file or to STDOUT
@@ -65,9 +73,11 @@ module Rviz
 
       @links.each do |ary|
         raise "#{ary[0]} not found as a node" unless @nodes[ary[0]] # from
-        ary[1] = @nodes[ary[0]].get_anchor if @nodes[ary[0]].get_anchor_id
         raise "#{ary[2]} not found as a node" unless @nodes[ary[2]] # to
-        ary[3] = @nodes[ary[2]].get_anchor if @nodes[ary[3]].get_anchor_id
+        if %w[Mrecord record].include?(@nodes[ary[0]].shape)
+          ary[1] = @nodes[ary[0]].get_anchor(ary[1])
+          ary[3] = @nodes[ary[2]].get_anchor(ary[3])
+        end
         @edges << Edge.new(*ary)
       end
 
