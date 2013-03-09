@@ -1,34 +1,34 @@
-module Rviz
-  class Graph
+module rviz
+  class graph
     attr_accessor :title, :subgraphs, :nodes, :edges
     
     def initialize title = '', attrs = {}
       @attrs = attrs
       @title = title
-      @nodes = Hash.new
-      @edges = Array.new
-      @links = Array.new
-      @subgraphs = Hash.new
+      @nodes = hash.new
+      @edges = array.new
+      @links = array.new
+      @subgraphs = hash.new
     end
 
-    def graph_start type = "digraph", name = "G"
+    def graph_start type = "digraph", name = "g"
       "#{type} #{name} {"
     end
 
     def graph_end; "}" end
 
-    include Rviz::Helper
+    include rviz::helper
     def graph_attr
-      @attrs["charset"] = "UTF-8" unless @attrs["charset"]
+      @attrs["charset"] = "utf-8" unless @attrs["charset"]
       sprintf("  graph [%s]", self.attrs_to_s)
     end
 
     def node_attr
-      '  node [fontname="Arial Unicode MS", fontsize=9, width=2.0];'
+      '  node [fontname="arial unicode ms", fontsize=9, width=2.0];'
     end
 
     def edge_attr
-      '  edge [fontname="Arial Unicode MS", fontsize=7];'
+      '  edge [fontname="arial unicode ms", fontsize=7];'
     end
 
     # return a specific node from the node list
@@ -38,11 +38,11 @@ module Rviz
 
     # add a node or create a node with name, shae and attributes
     def add name, shape='box', attrs = {}
-      if name.is_a?(Node)
+      if name.is_a?(node)
         node = name
         name = name.name
       else
-        node = Node.new(name, shape, attrs)
+        node = node.new(name, shape, attrs)
       end
       
       @nodes[name] = node
@@ -50,16 +50,16 @@ module Rviz
     end
 
     def add_subgraph
-      # TODO
+      # todo
     end
 
     def add_record name, attr = {}
-      @nodes[name] = Record.new(name, attr)
+      @nodes[name] = record.new(name, attr)
       self
     end
 
     def add_mrecord name, attr = {}
-      @nodes[name] = Mrecord.new(name, attr)
+      @nodes[name] = mrecord.new(name, attr)
       self
     end
 
@@ -70,21 +70,21 @@ module Rviz
     end
 
     def add_edge from_name, from_anchor, to_name, to_anchor, attrs = {}
-      @edges << Edge.new(from_name, from_anchor, to_name, to_anchor, attrs)
+      @edges << edge.new(from_name, from_anchor, to_name, to_anchor, attrs)
       self
     end
 
-    ## output dot language source to file or to STDOUT
-    def output file=STDOUT
+    ## output dot language source to file or to stdout
+    def output file=stdout
       fh = file
-      fh = File.open(file, "w:utf-8") if file.is_a?(String)
+      fh = file.open(file, "w:utf-8") if file.is_a?(string)
 
       fh.puts self.graph_start
       fh.puts self.graph_attr
 
       if self.title and self.title.size > 0
-        fh.puts %Q{  labelloc = "t";}
-        fh.puts %Q{  label= "#{self.title}";}
+        fh.puts %q{  labelloc = "t";}
+        fh.puts %q{  label= "#{self.title}";}
       end
 
       fh.puts self.node_attr
@@ -95,11 +95,10 @@ module Rviz
       @links.each do |ary|
         raise "#{ary[0]} not found as a node" unless @nodes[ary[0]] # from
         raise "#{ary[2]} not found as a node" unless @nodes[ary[2]] # to
-        if %w[Mrecord record].include?(@nodes[ary[0]].shape)
-          ary[1] = @nodes[ary[0]].get_anchor(ary[1])
-          ary[3] = @nodes[ary[2]].get_anchor(ary[3])
-        end
-        @edges << Edge.new(*ary)
+        ary[1] = @nodes[ary[0]].get_anchor(ary[1]) if @nodes[ary[0]].is_a?(record)
+        ary[3] = @nodes[ary[3]].get_anchor(ary[3]) if @nodes[ary[2]].is_a?(record)
+		
+        @edges << edge.new(*ary)
       end
 
       @edges.each {|e| fh.puts "  " + e.to_s}
@@ -109,7 +108,7 @@ module Rviz
     end
   end
 
-  class SubGraph < Graph
+  class subgraph < graph
     attr_accessor :name
     def graph_start; "  subgraph #{self.name} {" end
     def graph_end; "  }" end
