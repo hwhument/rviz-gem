@@ -82,7 +82,7 @@ module Rviz
       fh.puts self.graph_start
       fh.puts self.graph_attr
 
-      if self.title.size > 0
+      if self.title and self.title.size > 0
         fh.puts %Q{  labelloc = "t";}
         fh.puts %Q{  label= "#{self.title}";}
       end
