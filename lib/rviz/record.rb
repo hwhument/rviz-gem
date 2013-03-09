@@ -13,7 +13,7 @@ module Rviz
 
     # get the anchor name used for edge link
     def get_anchor row_name
-      "f" + self.get_anchor_id(row_name).to_s
+      "f" + self.get_anchor_id(row_name).to_s if get_anchor_id
     end
 
     def add_row row_name, create_anchor = false, port_pos = 'n'
