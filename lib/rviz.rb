@@ -17,7 +17,7 @@ module Rviz
     end
 
     def quote str
-      if str.match(/\W/)
+      if str.to_s.match(/\W/)
         %Q{"#{str.to_s}"}
       else
         str.to_s
